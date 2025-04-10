@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniFlix</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1b1b1b;
+            color: white;
+        }
+
+        #loadingScreen {
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLCtAg7xqzCmqTussTL9DeAWtfkGloyBmfGYFdinY4VOuMRvX_eDIi8OE&s=10') no-repeat center center;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #loadingScreen img {
+            width: 50px;
+            height: 50px;
+        }
+
+        #profilePage {
+            display: none;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        .profile-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .profile {
+            width: 150px;
+            height: 150px;
+            background-color: #fff;
+            border-radius: 50%;
+            border: 3px solid white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .profile img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .profile-text {
+            margin-top: 10px;
+        }
+
+        #videoPage {
+            display: none;
+            text-align: center;
+        }
+
+        .video-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .video-container div {
+            position: relative;
+            width: 160px; /* Tamaño reducido de las imágenes */
+            height: 90px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        .video-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+
+        .video-container img:hover {
+            transform: scale(1.05);
+        }
+
+        #videoPlayer {
+            display: none;
+            background-color: rgba(0, 0, 0, 0.7);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+        }
+
+        #videoPlayer iframe {
+            width: 80%;
+            height: 80%;
+        }
+
+        #videoPlayer span {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 30px;
+            color: white;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="loadingScreen">
+        <img src="https://kilermt.com/wp-content/uploads/2018/01/cargando.gif" alt="Cargando">
+    </div>
+
+    <div id="profilePage">
+        <h1>¿Quién está viendo esto?</h1>
+        <div class="profile-container">
+            <div class="profile" onclick="selectProfile('Perfil 1')">
+                <img src="https://tioanime.com/uploads/portadas/4169.jpg" alt="Perfil 1">
+            </div>
+            <div class="profile" onclick="selectProfile('Perfil 2')">
+                <img src="https://tioanime.com/uploads/portadas/4175.jpg" alt="Perfil 2">
+            </div>
+        </div>
+    </div>
+
+    <div id="videoPage">
+        <h1>¡Listo para ir de viaje a un mundo de fantasía!</h1>
+        <div class="video-container">
+            <!-- Video 1 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/2SGpvio5fJU')">
+                <img src="https://img.youtube.com/vi/2SGpvio5fJU/0.jpg" alt="Video 1">
+            </div>
+            <!-- Video 2 (Nuevo Video) -->
+            <div onclick="openVideo('https://www.youtube.com/embed/2ZKbzVxip0U')">
+                <img src="https://img.youtube.com/vi/2ZKbzVxip0U/0.jpg" alt="Video 2">
+            </div>
+            <!-- Video 3 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/mC5tr8dj1qA')">
+                <img src="https://img.youtube.com/vi/mC5tr8dj1qA/0.jpg" alt="Video 3">
+            </div>
+            <!-- Video 4 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/t0T-aXuZZsY')">
+                <img src="https://img.youtube.com/vi/t0T-aXuZZsY/0.jpg" alt="Video 4">
+            </div>
+            <!-- Video 5 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/m6IKzRqxeHg')">
+                <img src="https://img.youtube.com/vi/m6IKzRqxeHg/0.jpg" alt="Video 5">
+            </div>
+            <!-- Video 6 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/VI5EWklTdwE')">
+                <img src="https://img.youtube.com/vi/VI5EWklTdwE/0.jpg" alt="Video 6">
+            </div>
+            <!-- Video 7 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/SfR-sQhzKXw')">
+                <img src="https://img.youtube.com/vi/SfR-sQhzKXw/0.jpg" alt="Video 7">
+            </div>
+            <!-- Video 8 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/_EUBfzyq1Ng')">
+                <img src="https://img.youtube.com/vi/_EUBfzyq1Ng/0.jpg" alt="Video 8">
+            </div>
+            <!-- Video 9 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/mXmbZPtCkgw')">
+                <img src="https://img.youtube.com/vi/mXmbZPtCkgw/0.jpg" alt="Video 9">
+            </div>
+            <!-- Video 10 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/MMWI1--KQxg')">
+                <img src="https://img.youtube.com/vi/MMWI1--KQxg/0.jpg" alt="Video 10">
+            </div>
+            <!-- Video 11 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/LAglTmT4h2k')">
+                <img src="https://img.youtube.com/vi/LAglTmT4h2k/0.jpg" alt="Video 11">
+            </div>
+            <!-- Video 12 -->
+            <div onclick="openVideo('https://www.youtube.com/embed/wx1boZ4bz6Y')">
+                <img src="https://img.youtube.com/vi/wx1boZ4bz6Y/0.jpg" alt="Video 12">
+            </div>
+        </div>
+    </div>
+
+    <div id="videoPlayer" onclick="closeVideo()">
+        <span>&#10006;</span>
+        <iframe id="player" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <script>
+        setTimeout(function() {
+            document.getElementById("loadingScreen").style.display = "none";
+            document.getElementById("profilePage").style.display = "block";
+        }, 2000);
+
+        function selectProfile(profileName) {
+            document.getElementById("profilePage").style.display = "none";
+            document.getElementById("videoPage").style.display = "block";
+        }
+
+        function openVideo(videoUrl) {
+            document.getElementById("videoPlayer").style.display = "flex";
+            document.getElementById("player").src = videoUrl;
+        }
+
+        function closeVideo() {
+            document.getElementById("videoPlayer").style.display = "none";
+            document.getElementById("player").src = "";
+        }
+    </script>
+</body>
+</html>
